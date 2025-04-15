@@ -1,16 +1,17 @@
 import streamlit as st
+import pandas as pd
 
 st.set_page_config(page_title="OEA Dashboard", layout="wide")
+st.title("OEA Survey Dashboard")
+st.markdown("This is a working prototype connected to Google Sheets.")
 
-st.title("Welcome to the OEA Dashboard")
-st.markdown("This Streamlit app visualizes live survey data from a connected Google Sheet.")
+# Placeholder for data loading
+@st.cache_data
+def load_data():
+    sheet_url = st.secrets["google_sheets_url"]
+    df = pd.read_csv(sheet_url)
+    return df
 
-st.subheader("🚀 This is a placeholder.")
-st.markdown("""
-We'll replace this with the full KMR OEA Query Tool interface soon — including dropdown filters, 
-charts, tables, and export features.
-
-In the meantime, this proves your Streamlit app is correctly linked and deployed.
-""")
-
-st.info("✅ Deployment confirmed. Next step: connect to Google Sheets and load the real dashboard.")
+df = load_data()
+st.write("Preview of live data:")
+st.dataframe(df)
